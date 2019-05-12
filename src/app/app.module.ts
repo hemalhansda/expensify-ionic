@@ -12,12 +12,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { TabsPage } from './tabs/tabs.page';
 import { Tab1Page } from './tab1/tab1.page';
 import { HomePage } from './home/home.page';
+import { Tab2Page } from './tab2/tab2.page';
+import { Tab3Page } from './tab3/tab3.page';
 
 @NgModule({
   declarations: [
     AppComponent,
     TabsPage,
     Tab1Page,
+    Tab2Page,
+    Tab3Page,
     HomePage
   ],
   entryComponents: [],

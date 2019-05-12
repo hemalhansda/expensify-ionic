@@ -23,14 +23,14 @@ const routes: Routes = [
         component: Tab3Page
       },
       {
-        path: 'home',
+        path: 'tabs',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
       }
     ]
   },
   {
-    path: '',
+    path: 'tabs',
     redirectTo: '/tabs/tab1',
     pathMatch: 'full'
   }
