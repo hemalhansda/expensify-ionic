@@ -1,6 +1,8 @@
 {
   "name": "expensify",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "e76e9e2c"
 }

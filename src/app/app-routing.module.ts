@@ -5,10 +5,11 @@ import { Tab1Page } from './tab1/tab1.page';
 import { HomePage } from './home/home.page';
 import { Tab3Page } from './tab3/tab3.page';
 import { Tab2Page } from './tab2/tab2.page';
+import { RegisterPage } from './register/register.page';
 
 const routes: Routes = [
   { path: '', loadChildren: './login-reg/login-reg.module#LoginRegPageModule' },
-  { 
+  {
     path: 'home',
     component: HomePage,
     children: [
@@ -25,6 +26,7 @@ const routes: Routes = [
       }
     ]
   },
+  { path: 'register', component: RegisterPage },
   // { path: 'home/tab1', component: Tab1Page }
   // { path: 'login-reg', loadChildren: './login-reg/login-reg.module#LoginRegPageModule' }
 ];
