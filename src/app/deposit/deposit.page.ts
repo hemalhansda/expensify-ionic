@@ -12,4 +12,8 @@ export class DepositPage implements OnInit {
   ngOnInit() {
   }
 
+  deposit() {
+    
+  }
+
 }
