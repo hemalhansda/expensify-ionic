@@ -17,6 +17,8 @@ import { Tab3Page } from './tab3/tab3.page';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { RegisterPage } from './register/register.page';
 import { FormsModule } from '@angular/forms';
+import { WithdrawalPage } from './withdrawal/withdrawal.page';
+import { DepositPage } from './deposit/deposit.page';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     Tab2Page,
     Tab3Page,
     HomePage,
-    RegisterPage
+    RegisterPage,
+    WithdrawalPage,
+    DepositPage
   ],
   entryComponents: [],
   imports: [

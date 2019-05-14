@@ -9,7 +9,6 @@ import { CenterCoreService } from '../center-core.service';
 export class HomePage implements OnInit {
 
   constructor(public core: CenterCoreService) {
-    console.log(core.activeTab);
   }
 
   ngOnInit() {
