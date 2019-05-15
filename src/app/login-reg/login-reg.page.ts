@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginRegPage implements OnInit {
   mainImage = '/assets/icon/main-icon.png';
-  users: any;
+  users = [];
   errorMessage: any;
   errCheck = true;
 
