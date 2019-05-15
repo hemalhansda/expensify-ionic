@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>members</ion-title>
+    <ion-title>Members List</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card>
+    <ion-list>
+      <ion-grid *ngFor="let user of users">
+        <ion-row class="expense-heading">
+          <ion-col>Username</ion-col>
+          <ion-col>E-mail</ion-col>
+        </ion-row>
+        <ion-row class="expense">
+          <ion-col>{{user.username}}</ion-col>
+          <ion-col>{{user.email}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </ion-card>
 </ion-content>

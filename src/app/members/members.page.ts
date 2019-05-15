@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./members.page.scss'],
 })
 export class MembersPage implements OnInit {
+  users = [];
 
-  constructor() { }
+  constructor() {
+    if (localStorage.getItem('users')) {
+      this.users = JSON.parse(localStorage.getItem('users'));
+    }
+  }
 
   ngOnInit() {
   }
