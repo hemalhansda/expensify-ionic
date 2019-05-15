@@ -22,7 +22,6 @@ export class LoginRegPage implements OnInit {
   }
 
   login(form) {
-    console.log('this is form: ', form.value);
     this.users.forEach(user => {
       if (user.email === form.value.email && user.password === form.value.password) {
         this.errCheck = false;
@@ -33,6 +32,8 @@ export class LoginRegPage implements OnInit {
       this.errorMessage = 'Incorrect Credentials';
     } else {
       this.errorMessage = '';
+      const token = form.value.email;
+      localStorage.setItem('token', JSON.stringify(token));
       this.router.navigateByUrl('/home');
     }
   }
@@ -40,8 +41,8 @@ export class LoginRegPage implements OnInit {
   getFingerprint() {
     this.faio.show({
       clientId: 'Fingerprint-Demo',
-      clientSecret: 'password', //Only necessary for Android
-      disableBackup: true,  //Only for Android(optional)
+      clientSecret: 'password', // Only necessary for Android
+      disableBackup: true,  // Only for Android(optional)
     })
     .then((result: any) => console.log(result))
     .catch((error: any) => console.log(error));

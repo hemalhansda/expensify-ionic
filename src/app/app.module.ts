@@ -19,6 +19,8 @@ import { RegisterPage } from './register/register.page';
 import { FormsModule } from '@angular/forms';
 import { WithdrawalPage } from './withdrawal/withdrawal.page';
 import { DepositPage } from './deposit/deposit.page';
+import { HistoryPage } from './history/history.page';
+import { MembersPage } from './members/members.page';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { DepositPage } from './deposit/deposit.page';
     HomePage,
     RegisterPage,
     WithdrawalPage,
-    DepositPage
+    DepositPage,
+    HistoryPage,
+    MembersPage
   ],
   entryComponents: [],
   imports: [

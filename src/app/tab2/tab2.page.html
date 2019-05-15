@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Hi User - Configure Your Account
+      Configure Your Account
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-card>
+    <div text-center>
+      <div class="email">E-MAIL</div>
+      <div class="email--count">{{email}}</div>
+      <ion-button size="medium" style="width: 100%;" (click)="logout()">Logout</ion-button>
+    </div> 
+  </ion-card>
+</ion-content>
