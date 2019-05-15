@@ -12,6 +12,7 @@ export class LoginRegPage implements OnInit {
   users = [];
   errorMessage: any;
   errCheck = true;
+  username: any;
 
   constructor(private faio: FingerprintAIO, private router: Router) { }
 
@@ -24,6 +25,7 @@ export class LoginRegPage implements OnInit {
   login(form) {
     this.users.forEach(user => {
       if (user.email === form.value.email && user.password === form.value.password) {
+        this.username = user.username;
         this.errCheck = false;
       }
     });
@@ -32,7 +34,11 @@ export class LoginRegPage implements OnInit {
       this.errorMessage = 'Incorrect Credentials';
     } else {
       this.errorMessage = '';
-      const token = form.value.email;
+      const token = {
+        email: form.value.email,
+        username: this.username,
+        createdAt: new Date().toISOString()
+      };
       localStorage.setItem('token', JSON.stringify(token));
       this.router.navigateByUrl('/home');
     }

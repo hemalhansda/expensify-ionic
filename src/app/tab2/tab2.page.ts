@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 })
 export class Tab2Page implements OnInit{
   email: any;
+  username: any;
 
   constructor(private router: Router) {
     if (localStorage.getItem('token')) {
-      this.email = JSON.parse(localStorage.getItem('token'));
+      this.email = JSON.parse(localStorage.getItem('token')).email;
+      this.username = JSON.parse(localStorage.getItem('token')).username;
     }
   }
 
