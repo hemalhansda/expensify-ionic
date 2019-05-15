@@ -14,13 +14,13 @@ export class LoginRegPage implements OnInit {
   errCheck = true;
   username: any;
 
-  constructor(private faio: FingerprintAIO, private router: Router) { }
-
-  ngOnInit() {
+  constructor(private faio: FingerprintAIO, private router: Router) {
     if (localStorage.getItem('users')) {
       this.users = JSON.parse(localStorage.getItem('users'));
     }
   }
+
+  ngOnInit() {}
 
   login(form) {
     this.users.forEach(user => {
