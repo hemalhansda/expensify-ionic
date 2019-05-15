@@ -32,7 +32,7 @@ const routes: Routes = [
       }
     ]
   },
-  { path: 'register', component: RegisterPage, canActivate: [AuthGaurdService]},
+  { path: 'register', component: RegisterPage },
   { path: 'withdrawal', component: WithdrawalPage, canActivate: [AuthGaurdService] },
   { path: 'deposit', component: DepositPage, canActivate: [AuthGaurdService] },
   { path: 'history', component: HistoryPage, canActivate: [AuthGaurdService] },

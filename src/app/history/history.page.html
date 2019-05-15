@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>history</ion-title>
+    <ion-title>Expense Access History</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card>
+    <ion-list>
+      <ion-item *ngFor="let transaction of expenseHistory">
+        <ion-grid>
+          <ion-row class="expense-heading">
+            <ion-col>Username</ion-col>
+            <ion-col>Action</ion-col>
+            <ion-col>Money Altered</ion-col>
+          </ion-row>
+          <ion-row class="expense">
+            <ion-col>{{transaction.username}}</ion-col>
+            <ion-col>{{transaction.transactionType}}</ion-col>
+            <ion-col>{{transaction.moneyAltered}}</ion-col>
+          </ion-row>
+          <ion-row class="expense-heading">
+            <ion-col>Balance Before</ion-col>
+            <ion-col>Balance After</ion-col>
+            <ion-col>Updated At</ion-col>
+          </ion-row>
+          <ion-row class="expense">
+            <ion-col>{{transaction.balanceBefore}}</ion-col>
+            <ion-col>{{transaction.balanceAfter}}</ion-col>
+            <ion-col>{{transaction.moment}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
