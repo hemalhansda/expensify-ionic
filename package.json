@@ -1,7 +1,7 @@
 {
   "name": "expensify",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Hemaal Taras Hansda",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
@@ -84,7 +84,8 @@
       }
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
