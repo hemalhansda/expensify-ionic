@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { Router } from '@angular/router';
 import { RestService } from '../rest.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-reg',
