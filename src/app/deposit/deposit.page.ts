@@ -9,6 +9,7 @@ import { RestService } from '../rest.service';
 export class DepositPage implements OnInit {
   balance: any = 0;
   expenseHistory: any;
+  errorMessage: any = '';
 
   constructor(private http: RestService) { }
 
