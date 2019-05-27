@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { Router } from '@angular/router';
+import { RestService } from '../rest.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-reg',
@@ -9,22 +11,23 @@ import { Router } from '@angular/router';
 })
 export class LoginRegPage implements OnInit {
   mainImage = '/assets/icon/main-icon.png';
-  users = [];
+  users: any;
   errorMessage: any;
   errCheck = true;
   username: any;
 
-  constructor(private faio: FingerprintAIO, private router: Router) {
-    if (localStorage.getItem('users')) {
-      this.users = JSON.parse(localStorage.getItem('users'));
-    }
+  constructor(private faio: FingerprintAIO, private router: Router, private rest: RestService,
+              private http: HttpClient) {
+    rest.getAllUsers().subscribe((response) => {
+      this.users = response;
+    });
   }
 
   ngOnInit() {}
 
   login(form) {
     this.users.forEach(user => {
-      if (user.email === form.value.email && user.password === form.value.password) {
+      if (user.email === form.value.email) {
         this.username = user.username;
         this.errCheck = false;
       }
@@ -34,13 +37,19 @@ export class LoginRegPage implements OnInit {
       this.errorMessage = 'Incorrect Credentials';
     } else {
       this.errorMessage = '';
-      const token = {
-        email: form.value.email,
-        username: this.username,
-        createdAt: new Date().toISOString()
-      };
-      localStorage.setItem('token', JSON.stringify(token));
-      this.router.navigateByUrl('/home');
+      this.rest.login(form.value).subscribe((response) => {
+        const expensifyLogin = response;
+        if (expensifyLogin) {
+          this.rest.header = {
+            headers: {
+              'x-auth': expensifyLogin.token
+            }
+          };
+          localStorage.setItem('token', JSON.stringify(expensifyLogin.token));
+          localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
+          this.router.navigateByUrl('/home');
+        }
+      });
     }
   }
 
