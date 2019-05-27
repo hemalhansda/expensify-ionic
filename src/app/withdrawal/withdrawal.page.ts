@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-withdrawal',
@@ -7,32 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WithdrawalPage implements OnInit {
   balance: any = 0;
-  expenseHistory = [];
+  expenseHistory: any;
 
-  constructor() { }
+  constructor(private http: RestService) {}
 
   ngOnInit() {
-    if (localStorage.getItem('history')) {
-      this.expenseHistory = JSON.parse(localStorage.getItem('history'));
-    }
-    if (localStorage.getItem('bank')) {
-      this.balance = JSON.parse(localStorage.getItem('bank'));
-    }
+    this.http.getExpenseHistory().subscribe((response) => {
+      this.expenseHistory = response;
+    });
+    this.http.getBalance().subscribe((response) => {
+      this.balance = response[0].balance;
+    });
   }
 
   withdraw(form, amount) {
     const bankAccess = {
-      username: JSON.parse(localStorage.getItem('token')).username,
+      username: JSON.parse(localStorage.getItem('expensify-login')).user.username,
       transactionType: 'Withdrawal',
       moneyAltered: form.value.amount,
       balanceBefore: this.balance,
       balanceAfter: this.balance - form.value.amount,
-      moment: new Date()
+      createdAt: new Date()
     };
-    this.expenseHistory.push(bankAccess);
-    localStorage.setItem('history', JSON.stringify(this.expenseHistory));
+    this.http.addExpenseInfo(bankAccess).subscribe((response) => {
+      console.log(response);
+    });
     this.balance -= form.value.amount;
-    localStorage.setItem('bank', JSON.stringify(this.balance));
+    this.http.setBalance({ balance: this.balance }).subscribe();
     amount.value = '';
   }
 }

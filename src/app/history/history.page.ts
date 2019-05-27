@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-history',
@@ -6,13 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  expenseHistory = [];
+  expenseHistory: any;
 
-  constructor() { }
+  constructor(private rest: RestService) { }
 
   ngOnInit() {
-    if (localStorage.getItem('history')) {
-      this.expenseHistory = JSON.parse(localStorage.getItem('history')).map(transaction => {
+    this.rest.getExpenseHistory().subscribe((response) => {
+      this.expenseHistory = response;
+    });
+    if (this.expenseHistory) {
+      this.expenseHistory = this.expenseHistory.map(transaction => {
         transaction.moment = new Date(transaction.moment).toLocaleString();
         return transaction;
       });

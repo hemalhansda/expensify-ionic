@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-members',
@@ -6,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./members.page.scss'],
 })
 export class MembersPage implements OnInit {
-  users = [];
+  users: any;
 
-  constructor() {
-    if (localStorage.getItem('users')) {
-      this.users = JSON.parse(localStorage.getItem('users'));
-    }
+  constructor(private rest: RestService) {
+    rest.getAllUsers().subscribe((response) => {
+      this.users = response;
+    });
   }
 
   ngOnInit() {

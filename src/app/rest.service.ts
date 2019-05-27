@@ -41,4 +41,16 @@ export class RestService {
   public getBalance() {
     return this.http.get(this.url + '/getBalance', this.header);
   }
+
+  public setBalance(query) {
+    return this.http.post(this.url + '/setBalance', query, this.header);
+  }
+
+  public getExpenseHistory() {
+    return this.http.get(this.url + '/getAllExpenses', this.header);
+  }
+
+  public addExpenseInfo(query) {
+    return this.http.post(this.url + '/addExpenseHistory', query, this.header);
+  }
 }
