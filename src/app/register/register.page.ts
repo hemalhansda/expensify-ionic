@@ -36,7 +36,7 @@ export class RegisterPage implements OnInit {
     this.errorMessage = '';
     this.rest.register(form.value).subscribe((response) => {
       console.log('Successfull: ', response);
+      this.router.navigateByUrl('');
     });
-    this.router.navigateByUrl('');
   }
 }

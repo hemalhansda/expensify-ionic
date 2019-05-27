@@ -13,44 +13,32 @@ export class LoginRegPage implements OnInit {
   mainImage = '/assets/icon/main-icon.png';
   users: any;
   errorMessage: any;
-  errCheck = true;
+  errCheck = false;
   username: any;
 
-  constructor(private faio: FingerprintAIO, private router: Router, private rest: RestService,
-              private http: HttpClient) {
-    rest.getAllUsers().subscribe((response) => {
-      this.users = response;
-    });
-  }
+  constructor(private faio: FingerprintAIO, private router: Router, private rest: RestService) {}
 
   ngOnInit() {}
 
   login(form) {
-    this.users.forEach(user => {
-      if (user.email === form.value.email) {
-        this.username = user.username;
-        this.errCheck = false;
+    this.errorMessage = '';
+    this.rest.login(form.value).subscribe((response) => {
+      const expensifyLogin = response;
+      if (expensifyLogin) {
+        this.rest.header = {
+          headers: {
+            'x-auth': expensifyLogin.token
+          }
+        };
+        localStorage.setItem('token', JSON.stringify(expensifyLogin.token));
+        localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
+        this.router.navigateByUrl('/home');
+      }
+    }, (err) => {
+      if (err) {
+        this.errorMessage = 'Incorrect Credentials';
       }
     });
-
-    if (this.errCheck) {
-      this.errorMessage = 'Incorrect Credentials';
-    } else {
-      this.errorMessage = '';
-      this.rest.login(form.value).subscribe((response) => {
-        const expensifyLogin = response;
-        if (expensifyLogin) {
-          this.rest.header = {
-            headers: {
-              'x-auth': expensifyLogin.token
-            }
-          };
-          localStorage.setItem('token', JSON.stringify(expensifyLogin.token));
-          localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
-          this.router.navigateByUrl('/home');
-        }
-      });
-    }
   }
 
   getFingerprint() {
