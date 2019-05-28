@@ -14,13 +14,24 @@ export class LoginRegPage implements OnInit {
   errorMessage: any;
   errCheck = false;
   username: any;
+  email = '';
+  password = '';
+  showLoader = false;
 
-  constructor(private faio: FingerprintAIO, private router: Router, private rest: RestService) {}
+  constructor(private faio: FingerprintAIO, private router: Router, private rest: RestService) {
+    this.email = '';
+    this.password = '';
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.router.navigateByUrl('/home');
+    }
+  }
 
   login(form) {
     this.errorMessage = '';
+    this.showLoader = true;
     this.rest.login(form.value).subscribe((response) => {
       const expensifyLogin = response;
       if (expensifyLogin) {
@@ -31,11 +42,13 @@ export class LoginRegPage implements OnInit {
         };
         localStorage.setItem('token', JSON.stringify(expensifyLogin['token']));
         localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
+        this.showLoader = false;
         this.router.navigateByUrl('/home');
       }
     }, (err) => {
       if (err) {
         this.errorMessage = 'Incorrect Credentials';
+        this.showLoader = false;
       }
     });
   }

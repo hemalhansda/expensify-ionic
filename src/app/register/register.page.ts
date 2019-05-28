@@ -12,6 +12,7 @@ export class RegisterPage implements OnInit {
   errorMessage: string;
   users: any;
   errorCheck = false;
+  showLoader = false;
 
   constructor(private router: Router, private rest: RestService) { }
 
@@ -20,6 +21,7 @@ export class RegisterPage implements OnInit {
 
   // Using Expensify API
   register(form) {
+    this.showLoader = true;
     this.rest.getAllUsers().subscribe((response) => {
       this.users = response;
     });
@@ -32,10 +34,14 @@ export class RegisterPage implements OnInit {
         }
       });
     }
-    if (this.errorCheck) { return; }
+    if (this.errorCheck) {
+      this.showLoader = false;
+      return;
+    }
     this.errorMessage = '';
     this.rest.register(form.value).subscribe((response) => {
       console.log('Successfull: ', response);
+      this.showLoader = false;
       this.router.navigateByUrl('');
     });
   }

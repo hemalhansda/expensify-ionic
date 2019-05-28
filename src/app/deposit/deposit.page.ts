@@ -10,15 +10,18 @@ export class DepositPage implements OnInit {
   balance: any = 0;
   expenseHistory: any;
   errorMessage: any = '';
+  showLoader = false;
 
   constructor(private http: RestService) { }
 
   ngOnInit() {
+    this.showLoader = true;
     this.http.getExpenseHistory().subscribe((response) => {
       this.expenseHistory = response;
     });
     this.http.getBalance().subscribe((response) => {
-      this.balance = response[0].balance;
+      this.balance = response[0]['balance'];
+      this.showLoader = false;
     });
   }
 

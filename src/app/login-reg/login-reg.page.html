@@ -19,14 +19,21 @@
             <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
               <div padding>
                 <ion-item>
-                  <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+                  <ion-input name="email" type="email" placeholder="your@email.com" [(ngModel)]="email" required></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+                  <ion-input name="password" type="password" placeholder="Password" [(ngModel)]="password" required></ion-input>
                 </ion-item>
               </div>
               <div padding>
-                <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
+                <ion-button *ngIf="!showLoader" size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
+                <div class="virtual-button" *ngIf="showLoader">
+                  <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                </div>
                 <ion-label style="color: red;">{{errorMessage}}</ion-label>
               </div>
               <ion-label text-center style="align-items: center; display: block;">New User? <a routerLink="/register">Click here to register.</a> </ion-label>

@@ -85,7 +85,7 @@
     <plugin name="cordova-plugin-fingerprint-aio" spec="1.7.0">
         <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="cordova-plugin-advanced-http" spec="2.0.9" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.4" />
-    <plugin name="cordova-plugin-advanced-http" spec="2.0.9" />
 </widget>

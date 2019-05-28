@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RestService {
 
-  public url = 'http://localhost:3000';
+  // public url = 'http://localhost:3000';
+  public url = 'https://expensify-api-v2.herokuapp.com';
 
   public header: any;
 

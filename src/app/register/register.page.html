@@ -29,7 +29,14 @@
                 </ion-item>
               </div>
               <div padding>
-                <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+                <ion-button *ngIf="!showLoader" size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+                <div class="virtual-button" *ngIf="showLoader">
+                  <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+                </div>
                 <ion-label style="color: red;">{{errorMessage}}</ion-label>
               </div>
             </ion-col>
