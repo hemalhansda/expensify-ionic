@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 export class Tab1Page implements OnInit {
   constructor(private router: Router) {}
   jumpTo(jumper) {
-    console.log(1111111111);
     this.router.navigateByUrl('/' + jumper);
   }
 

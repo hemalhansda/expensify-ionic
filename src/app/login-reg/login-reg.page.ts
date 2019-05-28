@@ -26,10 +26,10 @@ export class LoginRegPage implements OnInit {
       if (expensifyLogin) {
         this.rest.header = {
           headers: {
-            'x-auth': expensifyLogin.token
+            'x-auth': expensifyLogin['token']
           }
         };
-        localStorage.setItem('token', JSON.stringify(expensifyLogin.token));
+        localStorage.setItem('token', JSON.stringify(expensifyLogin['token']));
         localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
         this.router.navigateByUrl('/home');
       }

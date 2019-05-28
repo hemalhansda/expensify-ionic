@@ -32,7 +32,7 @@ export class DepositPage implements OnInit {
       createdAt: new Date()
     };
     this.http.addExpenseInfo(bankAccess).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
     });
     this.balance += form.value.amount;
     this.http.setBalance({ balance: this.balance }).subscribe();

@@ -9,6 +9,7 @@ import { RestService } from '../rest.service';
 export class WithdrawalPage implements OnInit {
   balance: any = 0;
   expenseHistory: any;
+  errorMessage: any = '';
 
   constructor(private http: RestService) {}
 
@@ -17,7 +18,7 @@ export class WithdrawalPage implements OnInit {
       this.expenseHistory = response;
     });
     this.http.getBalance().subscribe((response) => {
-      this.balance = response[0].balance;
+      this.balance = response[0]['balance'];
     });
   }
 
@@ -31,7 +32,7 @@ export class WithdrawalPage implements OnInit {
       createdAt: new Date()
     };
     this.http.addExpenseInfo(bankAccess).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
     });
     this.balance -= form.value.amount;
     this.http.setBalance({ balance: this.balance }).subscribe();
