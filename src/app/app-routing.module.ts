@@ -11,6 +11,7 @@ import { DepositPage } from './deposit/deposit.page';
 import { AuthGaurdService } from './auth-gaurd.service';
 import { HistoryPage } from './history/history.page';
 import { MembersPage } from './members/members.page';
+import { PostPage } from './post/post.page';
 
 const routes: Routes = [
   { path: '', loadChildren: './login-reg/login-reg.module#LoginRegPageModule' },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'deposit', component: DepositPage, canActivate: [AuthGaurdService] },
   { path: 'history', component: HistoryPage, canActivate: [AuthGaurdService] },
   { path: 'members', component: MembersPage, canActivate: [AuthGaurdService] },
+  { path: 'post', component: PostPage, canActivate: [AuthGaurdService] },
   // { path: 'home/tab1', component: Tab1Page }
   // { path: 'login-reg', loadChildren: './login-reg/login-reg.module#LoginRegPageModule' }
 ];

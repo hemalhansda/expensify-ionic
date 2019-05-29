@@ -1,0 +1,25 @@
+.post-footer {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.add-post {
+    height: 45px;
+    width: 45px;
+    border-radius: 50px;
+    // background-color: #0000ff;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.add-post:hover {
+    background-color: grey;
+}
+
+.btn-icon {
+    height: 25px;
+    width: 25px;
+    color: white;
+}

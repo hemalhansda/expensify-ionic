@@ -21,6 +21,10 @@
       <ion-list-header>
         <ion-label>Choose your interest</ion-label>
       </ion-list-header>
+      <ion-item class="option--hover" (click)="jumpTo('post')">
+        <ion-icon slot="start" color="medium" name="browsers"></ion-icon>
+        <ion-label>Post</ion-label>
+      </ion-item>
       <ion-item class="option--hover" (click)="jumpTo('withdrawal')">
         <ion-icon slot="start" color="medium" name="cash"></ion-icon>
         <ion-label>Withdrawal</ion-label>

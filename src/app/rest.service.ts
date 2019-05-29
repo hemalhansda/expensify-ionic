@@ -59,4 +59,8 @@ export class RestService {
   public addExpenseInfo(query) {
     return this.http.post(this.url + '/addExpenseHistory', query, this.header);
   }
+
+  public postExpense(query) {
+    return this.http.post(this.url + '/postExpense', query, this.header);
+  }
 }

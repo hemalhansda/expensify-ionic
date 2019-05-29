@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, ActionSheetController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -22,6 +22,10 @@ import { DepositPage } from './deposit/deposit.page';
 import { HistoryPage } from './history/history.page';
 import { MembersPage } from './members/members.page';
 import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { PostPage } from './post/post.page';
+import { PostModalPage } from './post-modal/post-modal.page';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [
@@ -35,9 +39,13 @@ import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/n
     WithdrawalPage,
     DepositPage,
     HistoryPage,
-    MembersPage
+    MembersPage,
+    PostPage,
+    PostModalPage
   ],
-  entryComponents: [],
+  entryComponents: [
+    PostModalPage
+  ],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -50,6 +58,9 @@ import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/n
     SplashScreen,
     FingerprintAIO,
     AndroidFingerprintAuth,
+    ActionSheetController,
+    PhotoLibrary,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
