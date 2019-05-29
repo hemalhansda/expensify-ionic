@@ -28,6 +28,9 @@
                   <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
                 </ion-item>
               </div>
+              <!-- <div padding>
+                <ion-button style="display: block;" size="large" (click)="getFingerprint()">Scan your Finger</ion-button>
+              </div> -->
               <div padding>
                 <ion-button *ngIf="!showLoader" size="large" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
                 <div class="virtual-button" *ngIf="showLoader">

@@ -21,6 +21,7 @@ import { WithdrawalPage } from './withdrawal/withdrawal.page';
 import { DepositPage } from './deposit/deposit.page';
 import { HistoryPage } from './history/history.page';
 import { MembersPage } from './members/members.page';
+import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MembersPage } from './members/members.page';
     StatusBar,
     SplashScreen,
     FingerprintAIO,
+    AndroidFingerprintAuth,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
