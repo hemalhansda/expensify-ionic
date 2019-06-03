@@ -13,12 +13,14 @@ export class PostModalPage implements OnInit {
   @Input() value: number;
   imageData: any;
   userInfo: any;
+  imagePath: any;
 
   constructor(private navParams: NavParams, private modalController: ModalController,
               private rest: RestService) { }
 
   ngOnInit() {
     this.imageData = this.navParams.get('imageData');
+    this.imagePath = this.navParams.get('imagePath');
     console.log('imageData: ', this.imageData);
     this.userInfo = JSON.parse(localStorage.getItem('expensify-login'));
   }
@@ -29,7 +31,7 @@ export class PostModalPage implements OnInit {
 
   post(form) {
     const query = form.value;
-    query.image = this.imageData;
+    query.image = this.imagePath;
     query.username = this.userInfo.user.username;
     query.email = this.userInfo.user.email;
     query.createdAt = new Date();

@@ -63,4 +63,8 @@ export class RestService {
   public postExpense(query) {
     return this.http.post(this.url + '/postExpense', query, this.header);
   }
+
+  public getAllPosts() {
+    return this.http.get(this.url + '/getPosts', this.header);
+  }
 }

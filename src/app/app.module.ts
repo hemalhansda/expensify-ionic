@@ -27,7 +27,8 @@ import { PostPage } from './post/post.page';
 import { PostModalPage } from './post-modal/post-modal.page';
 import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { Transfer } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { Transfer } from '@ionic-native/transfer';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [
     StatusBar,
@@ -63,8 +64,9 @@ import { Transfer } from '@ionic-native/transfer';
     ActionSheetController,
     PhotoLibrary,
     WebView,
-    Transfer,
     Camera,
+    File,
+    FilePath,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
