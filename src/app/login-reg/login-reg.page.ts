@@ -93,9 +93,8 @@ export class LoginRegPage implements OnInit {
       this.showLoader = false;
     })
     .catch((error: any) => {
-      this.errorMessage = 'Incorrect Credentials';
+      // this.errorMessage = 'Incorrect Credentials';
       this.showLoader = false;
-      console.log('this is error', error);
     });
   }
 }

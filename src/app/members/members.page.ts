@@ -8,10 +8,13 @@ import { RestService } from '../rest.service';
 })
 export class MembersPage implements OnInit {
   users: any;
+  showLoader = false;
 
   constructor(private rest: RestService) {
+    this.showLoader = true;
     rest.getAllUsers().subscribe((response) => {
       this.users = response;
+      this.showLoader = false;
     });
   }
 

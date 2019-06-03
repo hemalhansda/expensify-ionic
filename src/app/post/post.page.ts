@@ -20,6 +20,7 @@ export class PostPage implements OnInit {
   lastImage: string = null;
   loading: any;
   expensePosts: any;
+  showLoader = false;
 
   constructor(private actionSheet: ActionSheetController, private photoLib: PhotoLibrary,
               private modalController: ModalController, private camera: Camera, private webView: WebView,
@@ -28,8 +29,10 @@ export class PostPage implements OnInit {
               private loadingCtrl: LoadingController, private rest: RestService) { }
 
   ngOnInit() {
+    this.showLoader = true;
     this.rest.getAllPosts().subscribe(response => {
       this.expensePosts = response;
+      this.showLoader = false;
     });
   }
 
@@ -38,7 +41,13 @@ export class PostPage implements OnInit {
       component: PostModalPage,
       componentProps: { imageData: image ? image : 'no-image', imagePath: targetPath ? targetPath : 'no-path' }
     });
-    return await modal.present();
+    return await modal.present().then(() => {
+      this.showLoader = true;
+      this.rest.getAllPosts().subscribe(response => {
+        this.expensePosts = response;
+        this.showLoader = false;
+      });
+    });
   }
 
   async presentActionSheet() {
