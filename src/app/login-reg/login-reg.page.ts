@@ -26,7 +26,7 @@ export class LoginRegPage implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('token')) {
-      this.router.navigateByUrl('/home');
+      this.getFingerprint();
     }
   }
 
@@ -64,31 +64,33 @@ export class LoginRegPage implements OnInit {
     })
     .then((result: any) => {
       console.log('this is result: ', result);
-      if (result.withFingerprint) {
-        this.fingerprint = result.withFingerprint;
-        const query = {
-          fingerId: this.fingerprint
-        };
-        this.rest.loginWithFingerprint(query).subscribe((response) => {
-          const expensifyLogin = response;
-          if (expensifyLogin) {
-            this.rest.header = {
-              headers: {
-                'x-auth': expensifyLogin['token']
-              }
-            };
-            localStorage.setItem('token', JSON.stringify(expensifyLogin['token']));
-            localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
-            this.showLoader = false;
-            this.router.navigateByUrl('/home');
-          }
-        }, (err) => {
-          if (err) {
-            this.errorMessage = 'Incorrect Credentials';
-            this.showLoader = false;
-          }
-        });
-      }
+      // if (result.withFingerprint) {
+      //   this.fingerprint = result.withFingerprint;
+      //   const query = {
+      //     fingerId: this.fingerprint
+      //   };
+      //   this.rest.loginWithFingerprint(query).subscribe((response) => {
+      //     const expensifyLogin = response;
+      //     if (expensifyLogin) {
+      //       this.rest.header = {
+      //         headers: {
+      //           'x-auth': expensifyLogin['token']
+      //         }
+      //       };
+      //       localStorage.setItem('token', JSON.stringify(expensifyLogin['token']));
+      //       localStorage.setItem('expensify-login', JSON.stringify(expensifyLogin));
+      //       this.showLoader = false;
+      //       this.router.navigateByUrl('/home');
+      //     }
+      //   }, (err) => {
+      //     if (err) {
+      //       this.errorMessage = 'Incorrect Credentials';
+      //       this.showLoader = false;
+      //     }
+      //   });
+      // }
+      this.router.navigateByUrl('/home');
+      this.showLoader = false;
     })
     .catch((error: any) => {
       this.errorMessage = 'Incorrect Credentials';
