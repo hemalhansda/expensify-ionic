@@ -21,6 +21,7 @@ export class PostPage implements OnInit {
   loading: any;
   expensePosts: any;
   showLoader = false;
+  originalImage: string;
 
   constructor(private actionSheet: ActionSheetController, private photoLib: PhotoLibrary,
               private modalController: ModalController, private camera: Camera, private webView: WebView,
@@ -41,13 +42,7 @@ export class PostPage implements OnInit {
       component: PostModalPage,
       componentProps: { imageData: image ? image : 'no-image', imagePath: targetPath ? targetPath : 'no-path' }
     });
-    return await modal.present().then(() => {
-      this.showLoader = true;
-      this.rest.getAllPosts().subscribe(response => {
-        this.expensePosts = response;
-        this.showLoader = false;
-      });
-    });
+    return await modal.present();
   }
 
   async presentActionSheet() {
@@ -89,8 +84,12 @@ export class PostPage implements OnInit {
 
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
+    console.log(`copyfile(${namePath}, ${currentName}, ${cordova.file.dataDirectory}/${this.file.dataDirectory}, ${newFileName})`);
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
+      console.log('lastImage: ', this.lastImage);
+      const targetPath = this.pathForImage(this.lastImage);
+      this.presentModal(this.originalImage, targetPath);
     }, error => {
       this.presentToast('Error while storing file.');
     });
@@ -108,8 +107,10 @@ export class PostPage implements OnInit {
   // Always get the accurate path to your apps folder
   public pathForImage(img) {
     if (img === null) {
+      console.log(111111);
       return '';
     } else {
+      console.log(222222);
       return cordova.file.dataDirectory + img;
     }
   }
@@ -131,11 +132,9 @@ export class PostPage implements OnInit {
     this.filePath.resolveNativePath(imagePath)
         .then(filePath => {
           const correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-          const currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+          const currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+          this.originalImage = this.webView.convertFileSrc(imagePath);
           this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-          const targetPath = this.pathForImage(this.lastImage);
-          const originalImage = this.webView.convertFileSrc(imagePath);
-          this.presentModal(originalImage, targetPath);
         });
     }, (err) => {
      // Handle error
