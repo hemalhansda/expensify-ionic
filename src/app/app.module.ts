@@ -26,6 +26,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { PostPage } from './post/post.page';
 import { PostModalPage } from './post-modal/post-modal.page';
 import { Camera } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { Transfer } from '@ionic-native/transfer';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     StatusBar,
@@ -60,6 +62,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     AndroidFingerprintAuth,
     ActionSheetController,
     PhotoLibrary,
+    WebView,
+    Transfer,
     Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

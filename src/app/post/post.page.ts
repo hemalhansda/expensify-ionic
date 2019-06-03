@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController, NavController, ToastController, Platform, LoadingController } from '@ionic/angular';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { PostModalPage } from '../post-modal/post-modal.page';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { Transfer } from '@ionic-native/transfer';
+import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 @Component({
   selector: 'app-post',
@@ -12,7 +16,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class PostPage implements OnInit {
 
   constructor(private actionSheet: ActionSheetController, private photoLib: PhotoLibrary,
-              private modalController: ModalController, private camera: Camera) { }
+              private modalController: ModalController, private camera: Camera, private webView: WebView,
+              private navCtrl: NavController, private transfer: Transfer, private file: File,
+              private filePath: FilePath, private toastCtrl: ToastController, private platform: Platform,
+              private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
   }
@@ -66,7 +73,8 @@ export class PostPage implements OnInit {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
      const base64Image = 'data:image/jpeg;base64,' + imageData;
-     this.presentModal(imageData);
+     const originalImage = this.webView.convertFileSrc(imageData);
+     this.presentModal(originalImage);
     }, (err) => {
      // Handle error
      console.log('error: ', err);

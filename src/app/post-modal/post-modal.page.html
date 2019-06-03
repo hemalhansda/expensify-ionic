@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <img [src]="imageData">
+  </ion-card>
   <form #form="ngForm" (ngSubmit)="post(form)">
     <ion-grid>
       <ion-row color="primary" justify-content-center>
