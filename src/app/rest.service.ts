@@ -8,7 +8,7 @@ export class RestService {
 
   // public url = 'http://localhost:3000';
   public url = 'https://expensify-api-v2.herokuapp.com';
-  // public url = 'http://192.168.0.111:3000';
+  // public url = 'http://192.168.29.190:3000';
 
   public header: any;
 

@@ -22,7 +22,7 @@ export class PostModalPage implements OnInit {
     this.imageData = this.navParams.get('imageData');
     this.imagePath = this.navParams.get('imagePath');
     console.log('imageData: ', this.imageData);
-    console.log('imagePAth: ', this.imagePath);
+    console.log('imagePath: ', this.imagePath);
     this.userInfo = JSON.parse(localStorage.getItem('expensify-login'));
   }
 
