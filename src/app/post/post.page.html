@@ -24,7 +24,7 @@
   <div *ngIf="!showLoader">
     <ion-card *ngFor="let post of expensePosts">
       <ion-card-header>
-        <ion-img src="/assets/shapes.svg"></ion-img>
+        <ion-img [src]="post.image" style="height: 180px;"></ion-img>
         <ion-card-subtitle>By - {{post.username}}</ion-card-subtitle>
         <ion-card-title>{{post.title}}</ion-card-title>
       </ion-card-header>

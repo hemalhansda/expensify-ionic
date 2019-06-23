@@ -4,9 +4,10 @@ import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { PostModalPage } from '../post-modal/post-modal.page';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { RestService } from '../rest.service';
-import * as moment from 'moment';
-import * as watermark from 'watermarkjs';
+// import * as moment from 'moment';
+// import * as watermark from 'watermarkjs';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @Component({
   selector: 'app-post',
@@ -28,7 +29,7 @@ export class PostPage implements OnInit {
   constructor(private actionSheet: ActionSheetController, private photoLib: PhotoLibrary,
               private modalController: ModalController, private camera: Camera, private rest: RestService,
               private platform: Platform, private loadingController: LoadingController,
-              private webView: WebView) { }
+              private webView: WebView, private base64: Base64) { }
 
   ngOnInit() {
     this.showLoader = true;
@@ -43,7 +44,7 @@ export class PostPage implements OnInit {
   async presentModal(image?, targetPath?) {
     const modal = await this.modalController.create({
       component: PostModalPage,
-      componentProps: { imageData: image ? image : 'no-image', imagePath: targetPath.length ? targetPath : 'no-path' }
+      componentProps: { imageData: image ? image : 'no-image', imagePath: targetPath ? targetPath : 'no-path' }
     });
     return await modal.present();
   }
@@ -55,29 +56,27 @@ export class PostPage implements OnInit {
         text: 'From Camera',
         icon: 'aperture',
         handler: () => {
-          console.log('Camera clicked');
-          this.openCamera();
+          this.openCamera(false);
         }
       }, {
         text: 'From Gallery',
         icon: 'images',
         handler: () => {
-          console.log('Gallery clicked');
-          this.openGallery();
+          // this.openGallery();
+          this.openCamera(true);
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancel clicked');
         }
       }]
     });
     await actionSheet.present();
   }
 
-  openCamera() {
+  openCamera(useAlbum: boolean) {
     this.platform.ready().then(() => {
       const options: CameraOptions = {
         quality: 30,
@@ -85,33 +84,30 @@ export class PostPage implements OnInit {
         saveToPhotoAlbum: true,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
-        targetHeight: 2272,
-        targetWidth: 1704,
+        sourceType: useAlbum ? this.camera.PictureSourceType.SAVEDPHOTOALBUM : undefined,
+        targetHeight: 704,
+        targetWidth: 904,
       };
       this.camera.getPicture(options).then(async (img) => {
         const self = this;
         const imageLoader = await this.loadingController.create({
           spinner: 'bubbles',
           message: 'Loading image..',
-          // dismissOnPageChange: true,
           cssClass: 'customLoader',
         });
         imageLoader.present();
-        // watermark([imageURL])
-        // .dataUrl(watermark.text.lowerLeft('watermark.js', '48px serif', '#fff', 0.5))
-        // .then((img) => {
         self.base64Image = img;
         self.displayPhotos.push(this.webView.convertFileSrc(self.base64Image)); // to show the thumbnails;
-        self.sliceBase64Image = self.base64Image.slice(26);
+        self.sliceBase64Image = self.base64Image.slice(22);
         self.photos.push(self.sliceBase64Image);
-        console.log('photos: ',  self.photos);
-        this.presentModal(self.displayPhotos[0], self.photos);
+        this.base64.encodeFile(img).then((base64File: string) => {
+          const convertedImage = 'data:image/jpeg;base64,' + base64File;
+          this.presentModal(self.displayPhotos[0], base64File);
+        }, (err) => {
+          console.log(err);
+        });
         self.photos.reverse();
         imageLoader.dismiss();
-        // }, (err) => {
-        //   imageLoader.dismiss();
-        //   // this.alertService.cameraFailure();
-        // });
       }); // end of get Picture
     }); // end of platform ready function.
   }

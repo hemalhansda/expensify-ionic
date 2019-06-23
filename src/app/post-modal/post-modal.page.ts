@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
 import { RestService } from '../rest.service';
 
@@ -7,7 +7,7 @@ import { RestService } from '../rest.service';
   templateUrl: './post-modal.page.html',
   styleUrls: ['./post-modal.page.scss'],
 })
-export class PostModalPage implements OnInit {
+export class PostModalPage implements OnInit, OnChanges {
   errorMessage: any;
 
   @Input() value: number;
@@ -19,11 +19,16 @@ export class PostModalPage implements OnInit {
               private rest: RestService) { }
 
   ngOnInit() {
+    this.imageData = [];
+    this.imagePath = [];
     this.imageData = this.navParams.get('imageData');
     this.imagePath = this.navParams.get('imagePath');
-    console.log('imageData: ', this.imageData);
-    console.log('imagePath: ', this.imagePath);
     this.userInfo = JSON.parse(localStorage.getItem('expensify-login'));
+  }
+
+  ngOnChanges() {
+    this.imageData = [];
+    this.imageData = this.navParams.get('imageData');
   }
 
   closeModal() {
@@ -37,7 +42,6 @@ export class PostModalPage implements OnInit {
     query.email = this.userInfo.user.email;
     query.createdAt = new Date();
     this.rest.postExpense(query).subscribe((response) => {
-      console.log('Success: ', response);
       this.modalController.dismiss();
     });
   }

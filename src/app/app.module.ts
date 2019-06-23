@@ -29,6 +29,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { FilePath } from '@ionic-native/file-path/ngx';
     Camera,
     File,
     FilePath,
+    Base64,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
